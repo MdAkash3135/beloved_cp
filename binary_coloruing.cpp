@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll unsigned long long
+#define ll long long
 #define F first
 #define S second
 #define Y cout<<"YES"<<endl
@@ -204,64 +204,98 @@ ll modul_inverse(ll b, ll mod)
 }
 int main()
 {
+
+    vector<ll> vmx, vmn, vmxn, vmnn;
+
+    ll mx = 1;
+    ll mn = 1;
+
+    vmx.pb(mx);
+    vmn.pb(mn);
+    vmx.pb(mx*2);
+    vmn.pb(mn*2);
+
+    vmxn.pb(-1*mx);
+    vmnn.pb(-1*mn);
+    vmxn.pb(-1*mx*2);
+    vmnn.pb(-1*mn*2);
+
+
+
+    ll c2 = 1;
+
+
+    for(int i = 2; i < 32; i++)
+    {
+        ll r1 = c2 << i;
+       // cout << r1 <<"     ";
+        mx = (vmx[i-2]) + r1;
+        mn = -1 * (vmx[i-2]) + r1;
+        vmx.pb(mx);
+        vmn.pb(mn);
+
+        vmxn.pb(-1*mx);
+        vmnn.pb(-1*mn);
+        //cout << mx << " " << mn << endl;
+
+    }
+
+
+
+
     ll t;
     cin >> t;
+
     while(t--)
     {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<ll> v, v1;
-        string s1 = ' '+ s;
-        ll sum = 0;
-        for(int i = 1; i <= n/2; i++)
+        ll x;
+        cin >> x;
+        map<int, int > ans;
+        int sc = 0;
+        for(ll i = vmx.size()-1; i >=0; i--)
         {
+            if(x>0)
+            {
+                ll r1 = pow(2ll, i);
 
-            if (s1[i] == 'L')
+                if(x<=vmx[i] && x >= vmn[i])
                 {
-                    v.push_back(n-i);
-                    sum += i-1;
+                    //          cout << i <<"  " << r1 <<"      " << vmx[i]<<" " << vmn[i] << "            ";
+                    x = x - r1;
+                    ans[i] = 1;
+
                 }
+            }
             else
             {
-                sum += n-i;
-            }
-          //  cout << sum << " ";
-        }
-        for (int i = (n/2) + 1; i <=n; i++)
-        {
-             if (s1[i] == 'R')
+                ll r1 = pow(2ll, i);
+              //  cout << x << " " << vmxn[i] <<"  " << vmnn[i] << endl;
+
+                if(x>=vmxn[i] && x <= vmnn[i])
                 {
-                    v.push_back(i-1);
-                    sum += (n-i);
+                    //          cout << i <<"  " << r1 <<"      " << vmx[i]<<" " << vmn[i] << "            ";
+                    x = x - (-r1);
+                   // cout << x << "ekhane asche " << endl;
+                    ans[i] = -1;
+
                 }
-            else
-            {
-                sum += (i-1);
+
+
             }
-            //cout << sum << " ";
+        }
+            cout << 32 << endl;
+            for (int i = 0;i < 32; i++)
+            {
+                cout << ans[i] <<" ";
+            }
+            cout << endl;
 
-
-        }
-        sort(v.begin(), v.end(), greater<ll>());
-        for (int i = 0; i < v.size();i++)
-        {
-           // cout << v[i] <<" ";
-            sum += v[i];
-            sum -= (n - v[i] - 1);
-            cout << sum << " ";
-           // cout << endl;
-        }
-        for (int i = 0; i < n-v.size(); i++)
-        {
-            cout << sum << " ";
-        }
-        cout << endl;
 
 
 
     }
-
 }
+
+
+
 

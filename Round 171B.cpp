@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll unsigned long long
+#define ll long long
 #define F first
 #define S second
 #define Y cout<<"YES"<<endl
@@ -202,66 +202,66 @@ ll modul_inverse(ll b, ll mod)
     return r2%mod;
 
 }
+bool canPaintAllCells(int n, const vector<long long>& a, long long k) {
+    int i = 0;
+    while (i < n - 1) {
+        // Check if we can pair cells within distance k
+        if (a[i + 1] - a[i] <= 2 * k) {
+            // Move to the next cell after this pair
+            i += 2;
+        } else {
+            // Skip the current cell and use the "extra cell" condition
+            i += 1;
+            // If we reached the end, it's possible
+            if (i >= n - 1) return true;
+            // If the next pair can't be matched, return false
+            if (a[i + 1] - a[i] > 2 * k) return false;
+        }
+    }
+    return true;
+}
+
+long long findMinK(int n, const vector<long long>& a) {
+    long long lo = 1, high = 1e18;
+    while (lo < high) {
+        long long mid = lo + (high - lo) / 2;
+        if (canPaintAllCells(n, a, mid)) {
+            high = mid;
+        } else {
+            lo = mid + 1;
+        }
+    }
+    return lo;
+}
+
 int main()
 {
     ll t;
+    t = 1;
     cin >> t;
+    vector<long long> results;
     while(t--)
     {
+
+
         int n;
         cin >> n;
-        string s;
-        cin >> s;
-        vector<ll> v, v1;
-        string s1 = ' '+ s;
-        ll sum = 0;
-        for(int i = 1; i <= n/2; i++)
+        vector<long long> a(n);
+        for (int i = 0; i < n; ++i)
         {
-
-            if (s1[i] == 'L')
-                {
-                    v.push_back(n-i);
-                    sum += i-1;
-                }
-            else
-            {
-                sum += n-i;
-            }
-          //  cout << sum << " ";
+            cin >> a[i];
         }
-        for (int i = (n/2) + 1; i <=n; i++)
-        {
-             if (s1[i] == 'R')
-                {
-                    v.push_back(i-1);
-                    sum += (n-i);
-                }
-            else
-            {
-                sum += (i-1);
-            }
-            //cout << sum << " ";
 
+        results.push_back(findMinK(n, a));
+    }
 
-        }
-        sort(v.begin(), v.end(), greater<ll>());
-        for (int i = 0; i < v.size();i++)
-        {
-           // cout << v[i] <<" ";
-            sum += v[i];
-            sum -= (n - v[i] - 1);
-            cout << sum << " ";
-           // cout << endl;
-        }
-        for (int i = 0; i < n-v.size(); i++)
-        {
-            cout << sum << " ";
-        }
-        cout << endl;
-
-
-
+    for (long long result : results)
+    {
+        cout << result << "\n";
     }
 
 }
+
+
+
 

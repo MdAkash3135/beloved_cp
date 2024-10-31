@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll unsigned long long
+#define ll long long
 #define F first
 #define S second
 #define Y cout<<"YES"<<endl
@@ -204,64 +204,75 @@ ll modul_inverse(ll b, ll mod)
 }
 int main()
 {
-    ll t;
-    cin >> t;
-    while(t--)
+    string a, b;
+    cin >> a >> b;
+    if(a.size() != b.size())
     {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<ll> v, v1;
-        string s1 = ' '+ s;
-        ll sum = 0;
-        for(int i = 1; i <= n/2; i++)
+        sort(a.begin(), a.begin() + a.size() , greater<char>());
+        cout << a << endl;
+        return 0;
+    }
+    map<char, int > ma, mb;
+    for (int i = 0; i < a.size(); i++)
+    {
+        ma[a[i]] ++;
+    }
+    for (int i = 0; i < b.size(); i++)
+    {
+        if( ma[b[i]] > 0)
         {
-
-            if (s1[i] == 'L')
-                {
-                    v.push_back(n-i);
-                    sum += i-1;
-                }
-            else
+            cout << b[i];
+            ma[b[i]] --;
+        }
+        else
+        {
+            char mn= '0';
+            for (int j =0 ; j < a.size(); j++)
             {
-                sum += n-i;
-            }
-          //  cout << sum << " ";
-        }
-        for (int i = (n/2) + 1; i <=n; i++)
-        {
-             if (s1[i] == 'R')
+                if (a[j] < b[i] && ma[a[j]])
+
                 {
-                    v.push_back(i-1);
-                    sum += (n-i);
+                    if (b[j] == '9')
+                    {
+                        continue;
+                    }
+                    mn = max(mn, a[j]);
+
                 }
-            else
-            {
-                sum += (i-1);
             }
-            //cout << sum << " ";
+            ma[mn]--;
+            cout << mn ;
 
-
+            break;
         }
-        sort(v.begin(), v.end(), greater<ll>());
-        for (int i = 0; i < v.size();i++)
+    }
+    map <char, int > :: iterator it;
+    vector<char> v;
+    for (it = ma.begin(); it != ma.end(); ++it)
+    {
+        if(it->second > 0)
         {
-           // cout << v[i] <<" ";
-            sum += v[i];
-            sum -= (n - v[i] - 1);
-            cout << sum << " ";
-           // cout << endl;
+            while(it->second > 0)
+            {
+                v.push_back(it->first);
+                it->second = it->second - 1;
+            }
         }
-        for (int i = 0; i < n-v.size(); i++)
-        {
-            cout << sum << " ";
-        }
-        cout << endl;
+    }
+    sort(v.begin(), v.begin() + v.size() , greater<char>());
+    for (int i = 0; i < v.size(); i++)
+    {
 
-
+        cout << v[i] ;
 
     }
 
+
+
 }
+
+
+
+
+
 

@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll unsigned long long
+#define ll  long long
 #define F first
 #define S second
 #define Y cout<<"YES"<<endl
@@ -204,60 +204,110 @@ ll modul_inverse(ll b, ll mod)
 }
 int main()
 {
-    ll t;
-    cin >> t;
-    while(t--)
+    ll n, q;
+    cin >> n >> q;
+    ll ara[n+1];
+    map<ll,ll > mp1, mp2;
+    for (int i = 1; i <=n; i++)
     {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<ll> v, v1;
-        string s1 = ' '+ s;
+        cin >> ara[i];
+        mp1[ara[i]]++;
+
+    }
+    map<ll,ll> :: iterator it;
+    for (it = mp1.begin(); it != mp1.end(); ++it)
+    {
+        //    cout << it->first <<" " << it->second << endl;
+    }
+    //cout << endl;
+
+    for (int i = 1; i <= q; i++)
+    {
+        ll b;
+        cin >> b;
+        vector<ll> v;
+        while(b!=0)
+        {
+            v.push_back(b%2);
+            b = b / 2;
+        }
+      //  vp(v);
+
+        for (it = mp1.begin(); it!= mp1.end(); ++it)
+        {
+
+            mp2[it->first] = it->second;
+        }
+
         ll sum = 0;
-        for(int i = 1; i <= n/2; i++)
+        int c = 0;
+        for (ll i = v.size()-1; i >= 0; i--)
         {
 
-            if (s1[i] == 'L')
+            if(v[i]==1)
+            {
+              //  cout << "initial done " << v[i] << endl;
+
+                ll r1 = pow(2LL,i);
+                //  cout << r1 << endl;
+
+                //map<ll, ll>:: iterator it1;
+                int c1 = 0;
+
+
+                //auto it1 = mp2.cend();
+
+
+                for(auto it2 = mp2.cend(); it2 != mp2.cbegin(); it2--)
                 {
-                    v.push_back(n-i);
-                    sum += i-1;
+                    auto it1 = it2;
+                    it1--;
+                    //   cout << it1->first <<" " << it1->second <<endl;
+
+                    if(r1>=it1->first)
+                    {
+                        // cout << "8 paao geche "<< r1/it1->first  << " "<< it1->second <<  endl;
+
+                        //  cout << r1/it1->first << endl;
+                     //   cout << sum <<"  " << r1 << "        " << it1->first << " " << it1->second << endl;
+
+                        sum += min((r1/it1->first), it1->second);
+                         r1 = r1 - ((min((r1/it1->first), it1->second)) * it1->first);
+                        //  cout << sum << endl;
+                        mp2[it1->first] =  mp2[it1->first] -  min((r1/it1->first), it1->second);
+
+                      //   cout << sum <<"  " << r1 << "        " << it1->first << " " << it1->second << endl;
+                      //   cout << endl;
+                      //   cout <<endl;
+
+                    }
+
+
+
                 }
+              //  cout << r1 << endl;
+                if(r1!=0LL)
+                {
+                    c++;
+                }
+
+
+            }
+
+        }
+         if(c==0)
+            {
+
+                cout  << sum << endl;
+            }
             else
             {
-                sum += n-i;
+                cout << "-1" << endl;
             }
-          //  cout << sum << " ";
-        }
-        for (int i = (n/2) + 1; i <=n; i++)
-        {
-             if (s1[i] == 'R')
-                {
-                    v.push_back(i-1);
-                    sum += (n-i);
-                }
-            else
-            {
-                sum += (i-1);
-            }
-            //cout << sum << " ";
 
 
-        }
-        sort(v.begin(), v.end(), greater<ll>());
-        for (int i = 0; i < v.size();i++)
-        {
-           // cout << v[i] <<" ";
-            sum += v[i];
-            sum -= (n - v[i] - 1);
-            cout << sum << " ";
-           // cout << endl;
-        }
-        for (int i = 0; i < n-v.size(); i++)
-        {
-            cout << sum << " ";
-        }
-        cout << endl;
+
+
 
 
 

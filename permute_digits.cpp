@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll unsigned long long
+#define ll long long
 #define F first
 #define S second
 #define Y cout<<"YES"<<endl
@@ -202,66 +202,42 @@ ll modul_inverse(ll b, ll mod)
     return r2%mod;
 
 }
+int trac[10];
 int main()
 {
-    ll t;
-    cin >> t;
-    while(t--)
-    {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<ll> v, v1;
-        string s1 = ' '+ s;
-        ll sum = 0;
-        for(int i = 1; i <= n/2; i++)
-        {
+   string a, b;
+   cin >> a >> b;
+   if(a!=b)
+   {
+        sort(a.begin(), a.end(), greater<char>());
+        cout << a << endl;
+   }
+   int mismatch_index_no = -1;
+   // trac the string a 
+   for (int i = 0; i < a.size();i++)
+   {
+        trac[a[i] - '0']++;
+   }
+   // find the mismath_index 
+   int temp_trac[10];
+   for (int i =0; i < 10; i++)
+   {
+        temp_trac[i] = trac[i];
+   }
 
-            if (s1[i] == 'L')
-                {
-                    v.push_back(n-i);
-                    sum += i-1;
-                }
-            else
-            {
-                sum += n-i;
-            }
-          //  cout << sum << " ";
+   for (int i = 0; i < b.size(); i++)
+   {
+        if (temp_trac[b[i] - '0'])
+        {
+            temp_trac[b[i]-'0']--;
+            continue;
         }
-        for (int i = (n/2) + 1; i <=n; i++)
-        {
-             if (s1[i] == 'R')
-                {
-                    v.push_back(i-1);
-                    sum += (n-i);
-                }
-            else
-            {
-                sum += (i-1);
-            }
-            //cout << sum << " ";
-
+        else{
+            // firstly looking for that there is small number in 
 
         }
-        sort(v.begin(), v.end(), greater<ll>());
-        for (int i = 0; i < v.size();i++)
-        {
-           // cout << v[i] <<" ";
-            sum += v[i];
-            sum -= (n - v[i] - 1);
-            cout << sum << " ";
-           // cout << endl;
-        }
-        for (int i = 0; i < n-v.size(); i++)
-        {
-            cout << sum << " ";
-        }
-        cout << endl;
-
-
-
-    }
+   }
+   
 
 }
 

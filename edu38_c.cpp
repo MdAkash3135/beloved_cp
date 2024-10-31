@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll unsigned long long
+#define ll long long
 #define F first
 #define S second
 #define Y cout<<"YES"<<endl
@@ -204,64 +204,75 @@ ll modul_inverse(ll b, ll mod)
 }
 int main()
 {
-    ll t;
-    cin >> t;
-    while(t--)
+    string a, b;
+    cin >> a >> b;
+    if(a.size() != b.size())
     {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<ll> v, v1;
-        string s1 = ' '+ s;
-        ll sum = 0;
-        for(int i = 1; i <= n/2; i++)
+        sort(a.begin(), a.begin() + a.size() , greater<char>());
+        cout << a << endl;
+        return 0;
+    }
+    map<char, int > ma, mb;
+    vector<char> ans;
+    for (int i = 0; i < a.size(); i++)
+    {
+        ma[a[i]] ++;
+    }
+    char second_var = 'a';
+    char second_var_pos = -1;
+    for (int i = 0; i < b.size(); i++)
+    {
+        if(ma[a[i]])
         {
+            ans.pb(a[i]);
+        }
+        else
+        {
+            second_var = a[i-1];
+            second_var_pos = i -1;
+            ans.pop_back();
+            break;
+        }
 
-            if (s1[i] == 'L')
-                {
-                    v.push_back(n-i);
-                    sum += i-1;
-                }
-            else
+    }
+    int third_phase = -1;
+    vector<char> tmp;
+    tmp.push_back(second_var)
+    for (int i = second_var_pos; i < a.size(); i++)
+    {
+        char tem_ans = '0';
+        int found = - 1;
+        for (int j = 0 ; j < a.size();j ++ )
+        {
+            if (ma[a[j]] && a[j] <= b[i])
             {
-                sum += n-i;
+                found = 1;
+                tem_ans = max(tem_ans, a[j]);
+
             }
-          //  cout << sum << " ";
+
         }
-        for (int i = (n/2) + 1; i <=n; i++)
+        if(found)
         {
-             if (s1[i] == 'R')
-                {
-                    v.push_back(i-1);
-                    sum += (n-i);
-                }
-            else
-            {
-                sum += (i-1);
-            }
-            //cout << sum << " ";
+            tmp.push_back(tem_ans);
+            ma[tem_ans]--;
+        }
+        else {
 
+            ma[tmp[tmp.size()-1]]++;
+            tmp.pop();
 
         }
-        sort(v.begin(), v.end(), greater<ll>());
-        for (int i = 0; i < v.size();i++)
-        {
-           // cout << v[i] <<" ";
-            sum += v[i];
-            sum -= (n - v[i] - 1);
-            cout << sum << " ";
-           // cout << endl;
-        }
-        for (int i = 0; i < n-v.size(); i++)
-        {
-            cout << sum << " ";
-        }
-        cout << endl;
-
-
 
     }
 
+
+
+
 }
+
+
+
+
+
 

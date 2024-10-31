@@ -1,3 +1,4 @@
+
 #include<bits/stdc++.h>
 using namespace std;
 #define ll unsigned long long
@@ -204,64 +205,37 @@ ll modul_inverse(ll b, ll mod)
 }
 int main()
 {
-    ll t;
-    cin >> t;
-    while(t--)
+    int n, b;
+    cin >> n >> b;
+    vector<int> v;
+    int ara[n+1];
+    for(int i = 1; i <=n; i++)
     {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<ll> v, v1;
-        string s1 = ' '+ s;
-        ll sum = 0;
-        for(int i = 1; i <= n/2; i++)
-        {
-
-            if (s1[i] == 'L')
-                {
-                    v.push_back(n-i);
-                    sum += i-1;
-                }
-            else
-            {
-                sum += n-i;
-            }
-          //  cout << sum << " ";
-        }
-        for (int i = (n/2) + 1; i <=n; i++)
-        {
-             if (s1[i] == 'R')
-                {
-                    v.push_back(i-1);
-                    sum += (n-i);
-                }
-            else
-            {
-                sum += (i-1);
-            }
-            //cout << sum << " ";
-
-
-        }
-        sort(v.begin(), v.end(), greater<ll>());
-        for (int i = 0; i < v.size();i++)
-        {
-           // cout << v[i] <<" ";
-            sum += v[i];
-            sum -= (n - v[i] - 1);
-            cout << sum << " ";
-           // cout << endl;
-        }
-        for (int i = 0; i < n-v.size(); i++)
-        {
-            cout << sum << " ";
-        }
-        cout << endl;
-
-
-
+        cin >> ara[i];
     }
+    int e =0, o = 0;
+    for(int i = 1; i <n; i++)
+    {
+        if(ara[i]%2)o++;
+        else e++;
+
+        if(e==o)
+        {
+            v.push_back(abs(ara[i]-ara[i+1]));
+        }
+    }
+    sort(v.begin(),v.end());
+   int c = 0;
+   for (int i =0 ; i < v.size(); i++)
+   {
+        if(v[i] <= b)
+        {
+            c++;
+            b = b - v[i];
+        }
+   }
+   cout << c << endl;
 
 }
+
 

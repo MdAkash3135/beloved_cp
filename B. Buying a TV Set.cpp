@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll unsigned long long
+#define ll long long
 #define F first
 #define S second
 #define Y cout<<"YES"<<endl
@@ -205,63 +205,27 @@ ll modul_inverse(ll b, ll mod)
 int main()
 {
     ll t;
-    cin >> t;
+    t = 1;
+    //cin >> t;
     while(t--)
     {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<ll> v, v1;
-        string s1 = ' '+ s;
-        ll sum = 0;
-        for(int i = 1; i <= n/2; i++)
-        {
 
-            if (s1[i] == 'L')
-                {
-                    v.push_back(n-i);
-                    sum += i-1;
-                }
-            else
-            {
-                sum += n-i;
-            }
-          //  cout << sum << " ";
-        }
-        for (int i = (n/2) + 1; i <=n; i++)
+        ll a, b, x, y;
+        cin >> a >> b >> x >> y;
+        ll ar =a , br = b;
+        while(1)
         {
-             if (s1[i] == 'R')
-                {
-                    v.push_back(i-1);
-                    sum += (n-i);
-                }
-            else
-            {
-                sum += (i-1);
-            }
-            //cout << sum << " ";
-
-
+            ll r3 = __gcd(x,y);
+            if(r3==1)break;
+            x = x/r3, y = y /r3;
         }
-        sort(v.begin(), v.end(), greater<ll>());
-        for (int i = 0; i < v.size();i++)
-        {
-           // cout << v[i] <<" ";
-            sum += v[i];
-            sum -= (n - v[i] - 1);
-            cout << sum << " ";
-           // cout << endl;
-        }
-        for (int i = 0; i < n-v.size(); i++)
-        {
-            cout << sum << " ";
-        }
-        cout << endl;
-
+        ll r1 = a/x;
+        ll r2 = b/y;
+        cout << min(r1,r2) << endl;
 
 
     }
 
 }
+
 

@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll unsigned long long
+#define ll long long
 #define F first
 #define S second
 #define Y cout<<"YES"<<endl
@@ -204,64 +204,29 @@ ll modul_inverse(ll b, ll mod)
 }
 int main()
 {
-    ll t;
-    cin >> t;
-    while(t--)
+    ll n;
+    cin >> n;
+    ll ara [n+1];
+    for (int i = 0; i < n; i++)
     {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<ll> v, v1;
-        string s1 = ' '+ s;
-        ll sum = 0;
-        for(int i = 1; i <= n/2; i++)
-        {
 
-            if (s1[i] == 'L')
-                {
-                    v.push_back(n-i);
-                    sum += i-1;
-                }
-            else
-            {
-                sum += n-i;
-            }
-          //  cout << sum << " ";
-        }
-        for (int i = (n/2) + 1; i <=n; i++)
-        {
-             if (s1[i] == 'R')
-                {
-                    v.push_back(i-1);
-                    sum += (n-i);
-                }
-            else
-            {
-                sum += (i-1);
-            }
-            //cout << sum << " ";
-
-
-        }
-        sort(v.begin(), v.end(), greater<ll>());
-        for (int i = 0; i < v.size();i++)
-        {
-           // cout << v[i] <<" ";
-            sum += v[i];
-            sum -= (n - v[i] - 1);
-            cout << sum << " ";
-           // cout << endl;
-        }
-        for (int i = 0; i < n-v.size(); i++)
-        {
-            cout << sum << " ";
-        }
-        cout << endl;
-
-
-
+        cin >> ara[i];
     }
 
+    ll ans = -1;
+    sort(ara, ara + n, greater<ll>());
+    for (int i = 0; i < n; i++)
+    {
+      //  if (ara[i] < 0)continue;
+        ll r1 = sqrt(ara[i]);
+        if(r1*r1 != ara[i])
+        {
+            ans = ara[i];
+            break;
+        }
+    }
+    cout << ans << endl;
+
 }
+
 

@@ -1,7 +1,6 @@
-
 #include<bits/stdc++.h>
 using namespace std;
-#define ll unsigned long long
+#define ll long long
 #define F first
 #define S second
 #define Y cout<<"YES"<<endl
@@ -205,7 +204,16 @@ ll modul_inverse(ll b, ll mod)
 }
 int main()
 {
+    ll t;
+    t = 1;
+    //cin >> t;
+    while(t--)
+    {
 
+
+
+
+    }
 
 }
 
