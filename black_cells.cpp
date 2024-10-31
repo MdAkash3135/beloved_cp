@@ -228,23 +228,16 @@ int main()
         }
         sort(mx2.begin(), mx2.end(), greater<ll>());
         cout << mx2 [0] <<" " << mx2[1] << endl;
+        
 
 
       }
       else
       {
-        ll oToe;
-        ll r1 = -1, r2 = - 1;
-        vector<ll> mx2;
-        for (int i = 1; i <= n-2; i = i++)
-        {
-            ll t1 = ara[i+1] - ara[i];
-            mx2.push_back(t1);
+        
 
         }
-        sort(mx2.begin(), mx2.end(), greater<ll>());
-        cout << mx2 [0] <<" " << mx2[1] << endl;
-        mx.clear();
+        
 
 
 
